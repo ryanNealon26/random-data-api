@@ -1,7 +1,7 @@
-import requests
 import json
 import string
 import random
+
 data = json.loads(open('namelist.json').read())
 words = json.loads(open('words.json').read())
 
@@ -97,10 +97,24 @@ class RandomData:
             minute = "0"+minute 
         pm_or_am = random.getrandbits(1)
         if pm_or_am:
-            time = f"{hour}:{minute} PM"
+            fake_time = f"{hour}:{minute} PM"
         else:
-            time = f"{hour}:{minute} AM"
+            fake_time = f"{hour}:{minute} AM"
         json = {
-            "Time": time
+            "Random Time": fake_time,
         }
         return json 
+    def generate_phone_number(self):
+        counter = 0
+        phonenumber = ""
+        for x in range(9):
+            number = str(random.randrange(1, 10))
+            phonenumber = phonenumber + number
+            counter+=1
+            if counter % 3 == 0 and counter !=9:
+                phonenumber = phonenumber + '-'
+        json = {
+            "Phone Number": phonenumber
+        }
+        return json
+            

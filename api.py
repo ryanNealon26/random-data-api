@@ -45,3 +45,17 @@ def read_item(wordCount: int):
 @app.get("/random-time/")
 def read_item():
     return random_api.generate_time_of_day()
+@app.get("/random-phonenumber")
+def read_item():
+    return random_api.generate_phone_number()
+
+@app.get("/random-phonenumber/{total}")
+def read_item(total: int):
+    total_numbers = []
+    for number in range(total):
+        data = random_api.generate_phone_number()
+        total_numbers.append(data['Phone Number'])
+    json = {
+        "data": total_numbers
+    }
+    return json
