@@ -17,6 +17,7 @@ class RandomData:
         email = f"{firstName[0].lower()}{lastName.lower()}@gmail.com"
         return [fullName, email]
 
+
     def generate_password(self, passwordLength):
         password = ""
         special_char_list = ['&', '$', '%', '!', '@', '?']
@@ -34,7 +35,6 @@ class RandomData:
                 randomLetter = random.choice(string.ascii_letters)
                 password = password + randomLetter
         return password
-
     def profile_json(self):
         name_and_email = self.create_profile_data()
         password = self.generate_password(15)
@@ -44,3 +44,35 @@ class RandomData:
             "Password": password
         }
         return user_data
+
+    def generate_rand_date(self):
+        month =  str(random.randrange(1, 13))
+        year = 2024
+        month_list = {
+            '1': "January",
+            '2': "February",
+            '3': "March",
+            '4': "April",
+            '5': "May", 
+            '6': "June",
+            '7': "July",
+            '8': "August",
+            '9': "September",
+            '10': "October",
+            '11': "November",
+            '12': "December"
+        }
+        if month == '9' or month == '4' or month=='7' or month=='11':
+            day = str(random.randrange(1, 31))
+        elif month == '2':
+            if year%4==0:
+                day = str(random.randrange(1, 30))
+            else:
+                day = str(random.randrange(1, 30))
+        else:
+            day = str(random.randrange(1, 32))
+        json = {
+            "formatted_date": f"{month_list[month]} {day}, {year}",
+            "unformatted_date": f"{month}/{day}/{year}"
+        }
+        return json
