@@ -36,3 +36,6 @@ def read_item(total: int):
         "data": total_dates
     }
     return json
+@app.get("/random-text/{wordCount}")
+def read_item(wordCount: int):
+    return random_api.generate_random_text(wordCount)

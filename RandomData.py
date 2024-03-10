@@ -3,6 +3,7 @@ import json
 import string
 import random
 data = json.loads(open('namelist.json').read())
+words = json.loads(open('words.json').read())
 
 class RandomData:
     def create_profile_data(self):
@@ -74,5 +75,18 @@ class RandomData:
         json = {
             "formatted_date": f"{month_list[month]} {day}, {year}",
             "unformatted_date": f"{month}/{day}/{year}"
+        }
+        return json
+    #Generated Random text in lorem lipsum style
+    def generate_random_text(self, wordCount):
+        text = ""
+        if wordCount > 300:
+            text = "Word Count limit is 200"
+        else:
+            for x in range(wordCount):
+                word = random.choice(words['words'])
+                text = text + word + " "
+        json = {
+            "text": text
         }
         return json
