@@ -18,7 +18,6 @@ class RandomData:
         email = f"{firstName[0].lower()}{lastName.lower()}@gmail.com"
         return [fullName, email]
 
-
     def generate_password(self, passwordLength):
         password = ""
         special_char_list = ['&', '$', '%', '!', '@', '?']
@@ -80,8 +79,9 @@ class RandomData:
     #Generated Random text in lorem lipsum style
     def generate_random_text(self, wordCount):
         text = ""
+        #limits max count at 300
         if wordCount > 300:
-            text = "Word Count limit is 200"
+            text = "Word Count limit is 300"
         else:
             for x in range(wordCount):
                 word = random.choice(words['words'])
@@ -90,3 +90,17 @@ class RandomData:
             "text": text
         }
         return json
+    def generate_time_of_day(self):
+        hour = str(random.randrange(1, 13))
+        minute = str(random .randrange(1, 61))
+        if int(minute) < 10:
+            minute = "0"+minute 
+        pm_or_am = random.getrandbits(1)
+        if pm_or_am:
+            time = f"{hour}:{minute} PM"
+        else:
+            time = f"{hour}:{minute} AM"
+        json = {
+            "Time": time
+        }
+        return json 

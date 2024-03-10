@@ -23,9 +23,11 @@ def read_item(total: int):
         "data": total_profiles
     }
     return json
+
 @app.get("/random-date")
 def read_item():
     return random_api.generate_rand_date()
+
 @app.get("/random-date/{total}")
 def read_item(total: int):
     total_dates = []
@@ -36,6 +38,10 @@ def read_item(total: int):
         "data": total_dates
     }
     return json
+
 @app.get("/random-text/{wordCount}")
 def read_item(wordCount: int):
     return random_api.generate_random_text(wordCount)
+@app.get("/random-time/")
+def read_item():
+    return random_api.generate_time_of_day()
