@@ -72,6 +72,7 @@ class RandomData:
         else:
             day = str(random.randrange(1, 32))
         json = {
+            "Month": month,
             "formatted_date": f"{month_list[month]} {day}, {year}",
             "unformatted_date": f"{month}/{day}/{year}"
         }
@@ -117,4 +118,73 @@ class RandomData:
             "Phone Number": phonenumber
         }
         return json
-            
+    def generate_temperature(self, season):
+        if season== 'Winter':
+            temp = random.randrange(0, 37)
+        if season == 'Spring':
+            temp = random.randrange(38, 70)
+        if season == 'Summer':
+            temp = random.randrange(70, 100)
+        if season == 'Fall':
+            temp = random.randrange(40, 60)
+        return temp
+    def generate_weather_condition(self, temperature):
+        rand_int = random.randint(0, 3)
+        match rand_int:
+            case 0:
+                condition = 'Mostly Cloudy'
+            case 1:
+                condition = 'Mostly Sunny'
+            case 2:
+                if temperature < 32:
+                    chance_hail = random.randint(0, 4)
+                    if chance_hail == 4:
+                        condition = 'Hail'
+                    elif chance_hail == 3:
+                        condition = 'Heavy Snow'
+                    elif chance_hail == 2:
+                        condition = 'Light Snow'
+                    else:
+                        condition = 'Chance of Snow'
+                else:
+                    chance_rain = random.randint(0, 3)
+                    if chance_rain == 3:
+                        condition = 'Heavy Rain'
+                    elif chance_rain == 3 and temperature > 90:
+                        condition = 'Thunderstorms'
+                    elif chance_rain == 2:
+                        condition = 'Light Rain'
+                    else:
+                        condition = 'Chance of Rain'
+            case 3:
+                windspeed = random.randint(0, 24)
+                if windspeed < 4:
+                    condition = 'Calm Winds'
+                elif windspeed in range(5, 8):
+                    condition = 'Light Winds'
+                elif windspeed in range(9, 18):
+                    condition = 'Moderate Winds'
+                else:
+                    condition = 'Heavy Winds'
+        return condition
+
+    def random_weather(self):      
+        date_data = self.generate_rand_date()
+        month = int(date_data["Month"])
+        print(month)
+        if month in [12, 1, 2]:
+            season = "Winter"
+        if month in [3, 4, 5]:
+            season = "Spring"
+        if month in [6, 7, 8]:
+            season = "Summer"
+        if month in [9, 10, 11]:
+            season = "Fall"
+        temperature =self.generate_temperature(season)
+        json = {
+            "Date": date_data["formatted_date"],
+            "Season": season,
+            "Temperature": f"{temperature}º Fahrenheit",
+            "Weather Condtion": self.generate_weather_condition(temperature)
+        }
+        return json

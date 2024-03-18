@@ -5,6 +5,7 @@ from RandomData import RandomData
 app = FastAPI()
 
 random_api = RandomData()
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -42,9 +43,11 @@ def read_item(total: int):
 @app.get("/random-text/{wordCount}")
 def read_item(wordCount: int):
     return random_api.generate_random_text(wordCount)
+
 @app.get("/random-time/")
 def read_item():
     return random_api.generate_time_of_day()
+
 @app.get("/random-phonenumber")
 def read_item():
     return random_api.generate_phone_number()
@@ -56,6 +59,9 @@ def read_item(total: int):
         data = random_api.generate_phone_number()
         total_numbers.append(data['Phone Number'])
     json = {
-        "data": total_numbers
+        "Phone Numbers": total_numbers
     }
     return json
+@app.get("/random-weather")
+def read_item():
+    return random_api.random_weather()
