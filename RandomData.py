@@ -2,18 +2,19 @@ import json
 import string
 import random
 
-data = json.loads(open('namelist.json').read())
+name_list = json.loads(open('namelist.json').read())
 words = json.loads(open('words.json').read())
+street_names = json.loads(open('address.json').read())
 
 class RandomData:
     def create_profile_data(self):
         girl_or_boy = bool(random.getrandbits(1))
-        lastName = random.choice(data['last_names'])
+        lastName = random.choice(name_list['last_names'])
         if girl_or_boy == True:
-            firstName = random.choice(data['boysFirst'])
+            firstName = random.choice(name_list['boysFirst'])
             fullName = f"{firstName} {lastName}"
         else:
-            firstName = random.choice(data['girlsFirst'])
+            firstName = random.choice(name_list['girlsFirst'])
             fullName = f"{firstName} {lastName}"
         email = f"{firstName[0].lower()}{lastName.lower()}@gmail.com"
         return [fullName, email]
@@ -171,7 +172,6 @@ class RandomData:
     def random_weather(self):      
         date_data = self.generate_rand_date()
         month = int(date_data["Month"])
-        print(month)
         if month in [12, 1, 2]:
             season = "Winter"
         if month in [3, 4, 5]:
@@ -188,3 +188,9 @@ class RandomData:
             "Weather Condtion": self.generate_weather_condition(temperature)
         }
         return json
+    def generate_fake_address(self):
+        street_name = random.choice(street_names['street_names'])
+        street_closure = random.choice(street_names['finish'])
+        number = random.randrange(1, 350)
+        state = random.choice(street_names['states'])
+        address = f"{number} {street_name} {street_closure}"
