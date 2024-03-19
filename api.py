@@ -62,9 +62,11 @@ def read_item(total: int):
         "Phone Numbers": total_numbers
     }
     return json
+
 @app.get("/random-weather")
 def read_item():
     return random_api.random_weather()
+
 @app.get("/random-address")
 def read_item():
     return random_api.generate_fake_address()

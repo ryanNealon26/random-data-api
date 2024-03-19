@@ -194,3 +194,9 @@ class RandomData:
         number = random.randrange(1, 350)
         state = random.choice(street_names['states'])
         address = f"{number} {street_name} {street_closure}"
+        json = {
+            "Address": address,
+            "State": state,
+            "Abbreviaton": state[0:2].upper()
+        }
+        return json
